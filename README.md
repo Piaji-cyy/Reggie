@@ -1,4 +1,4 @@
-# Reggie_first 瑞吉外卖初始项目
+# Reggie 瑞吉外卖
 本项目是参考B站黑马程序员的《瑞吉外卖》教程所实现的一个SpringBoot+MybatisPlus+Mysql技术栈的前后端分离外卖管理系统。
 
 main版本下仅暂时完成基本操作，未使用Redis、tomcat等进行部署。
