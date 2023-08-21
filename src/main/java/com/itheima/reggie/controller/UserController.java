@@ -5,6 +5,9 @@ import com.itheima.reggie.common.R;
 import com.itheima.reggie.entity.User;
 import com.itheima.reggie.service.UserService;
 import com.itheima.reggie.utils.MailUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @Slf4j
 @RequestMapping("/user")
+@Api(tags = "用户相关接口")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -30,6 +34,7 @@ public class UserController {
     private RedisTemplate redisTemplate;
 
     @PostMapping("/sendMsg")
+    @ApiOperation("发送验证邮件接口")
     public R<String> sendMsg(@RequestBody User user, HttpSession session) throws MessagingException {
         //获取邮箱号 注意，这里的邮箱号就是手机号
         String phone = user.getPhone();
@@ -52,6 +57,8 @@ public class UserController {
 
     //移动端用户登录
     @PostMapping("/login")
+    @ApiOperation("用户登录接口")
+    @ApiImplicitParam(name = "map",value = "map集合接收数据",required = true)
     public R<User> login(@RequestBody Map map, HttpSession session)  {
         log.info(map.toString() );
         //获取邮箱(手机号)
@@ -93,6 +100,7 @@ public class UserController {
     }
 
     @PostMapping("/loginout")
+    @ApiOperation("用户登出接口")
     public R<String> loginout(HttpServletRequest request){
         //清理Session中保存的当前用户的id
         request.getSession().removeAttribute("user");
